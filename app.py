@@ -1,31 +1,29 @@
 import streamlit as st
 import pandas as pd
-from gtts import gTTS
-import io
 
-st.set_page_config(page_title="App 1000 từ", layout="centered")
+# Load dữ liệu
+df = pd.read_csv('tuvung.csv')
+
 st.title("🇯🇵 Tra cứu 1000 Từ Vựng")
 
-@st.cache_data
-def load_data():
-    return pd.read_csv("tuvung.csv")
+# Sử dụng key để quản lý input, giúp tránh lỗi đơ màn hình
+search_query = st.text_input("Tìm kiếm:", key="search_bar")
 
-df = load_data()
-search = st.text_input("🔍 Tìm kiếm:")
-
-if search:
-    res = df[df["Nghia"].str.contains(search, case=False, na=False) | 
-             df["TiengNhat"].str.contains(search, case=False, na=False)]
+if search_query:
+    # Lọc dữ liệu
+    result = df[df['Nghia'].str.contains(search_query, case=False, na=False) | 
+                df['TiengNhat'].str.contains(search_query, case=False, na=False)]
     
-    # Chỉ hiển thị kết quả đầu tiên để không bị lag
-    if not res.empty:
-        r = res.iloc[0] 
-        st.subheader(f"{r['TiengNhat']} - {r['Nghia']}")
-        
-        tts = gTTS(text=str(r['TiengNhat']), lang='ja')
-        fp = io.BytesIO()
-        tts.write_to_fp(fp)
-        fp.seek(0)
-        st.audio(fp, format='audio/mp3')
+    if not result.empty:
+        for i, row in result.iterrows():
+            st.write(f"### {row['Nghia']} - {row['TiengNhat']}")
+            st.write(f"**Romaji:** {row['Romaji']}")
+            # Hiển thị pitch accent màu đỏ
+            st.markdown(f"**Pitch Accent:** {row['PitchAccent']}", unsafe_allow_html=True)
+            st.divider()
     else:
         st.warning("Không tìm thấy từ này.")
+
+# Nút xóa nhanh để khỏi phải ấn backspace nhiều
+if st.button("Xóa tìm kiếm"):
+    st.rerun()
