@@ -1,32 +1,21 @@
-import streamlit as st
-import pandas as pd
-from gtts import gTTS
-import io
-
-st.set_page_config(page_title="App Tiếng Nhật", page_icon="🇯🇵")
-st.title("🇯🇵 App Tra Cứu Tiếng Nhật")
-
-@st.cache_data
-def load_data():
-    return pd.read_csv("tuvung.csv")
-
-df = load_data()
-
-search = st.text_input("🔍 Nhập từ cần tìm:")
-
-if search:
-    # Lọc dữ liệu
-    res = df[df["Nghia"].str.contains(search, case=False, na=False) | df["TiengNhat"].str.contains(search, case=False, na=False)]
-    
-    if not res.empty:
-        for _, r in res.iterrows():
-            st.write(f"### {r['TiengNhat']}")
-            st.write(f"💡 Nghĩa: {r['Nghia']}")
-            # Chỉ tạo âm thanh nếu có dữ liệu tiếng Nhật
-            tts = gTTS(text=str(r['TiengNhat']).split('(')[0].strip(), lang='ja')
-            fp = io.BytesIO()
-            tts.write_to_fp(fp)
-            fp.seek(0)
-            st.audio(fp, format='audio/mp3')
-    else:
-        st.warning("Không tìm thấy từ này trong từ điển!")
+Nghia,TiengNhat,PhanLoai
+Cái gì,何 (Nani),Đại từ
+Mấy giờ,何時 (Nanji),Thời gian
+Ăn,食べる (Taberu),Động từ
+Bánh mì,パン (Pan),Đồ ăn
+Buổi sáng,朝 (Asa),Thời gian
+Đi bộ,歩く (Aruku),Động từ
+Nước,水 (Mizu),Đồ ăn
+Ngủ,寝る (Neru),Động từ
+Cảm ơn,ありがとう (Arigatou),Giao tiếp
+Chào buổi sáng,おはよう (Ohayou),Giao tiếp
+Tạm biệt,さようなら (Sayounara),Giao tiếp
+Hôm nay,今日 (Kyou),Thời gian
+Ngày mai,明日 (Ashita),Thời gian
+Yêu,愛する (Aisuru),Động từ
+Viết,書く (Kaku),Động từ
+Đọc,読む (Yomu),Động từ
+Sách,本 (Hon),Đồ vật
+Máy tính,コンピュータ (Konpyuuta),Đồ vật
+Điện thoại,電話 (Denwa),Đồ vật
+Học tập,勉強 (Benkyou),Động từ
