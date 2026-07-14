@@ -1,25 +1,38 @@
 import streamlit as st
 import pandas as pd
+from gtts import gTTS
+import io
+import re
 
+st.set_page_config(page_title="App Tra Cứu Tiếng Nhật", page_icon="🇯🇵", layout="wide")
+st.markdown("<h1 style='text-align: center; color: #1a4d4a;'>🇯🇵 APP TRA CỨU & LUYỆN NGHE TIẾNG NHẬT</h1>", unsafe_allow_html=True)
+
+# Tải dữ liệu
 @st.cache_data
 def load_data():
-    # Giả sử bạn đã up file csv lên GitHub
     return pd.read_csv("tuvung.csv")
 
 df = load_data()
 
-st.title("🇯🇵 Từ điển 10.000 từ")
-search = st.text_input("🔍 Tìm kiếm:")
+# Tìm kiếm và lọc
+search_query = st.text_input("🔍 Nhập từ cần tìm:")
+categories = ["Tất cả"] + list(df["PhanLoai"].unique())
+selected_cat = st.selectbox("📂 Lọc theo danh mục:", categories)
 
-if search:
-    res = df[df["Nghia"].str.contains(search, case=False, na=False) | 
-             df["TiengNhat"].str.contains(search, case=False, na=False)]
-    
-    # Phân trang: Chỉ hiển thị 20 kết quả mỗi lần để App không bị treo
-    page = st.number_input("Trang", min_value=1, value=1)
-    start = (page - 1) * 20
-    end = start + 20
-    
-    st.write(f"Hiển thị {start+1} đến {min(end, len(res))} của {len(res)} kết quả")
-    for _, r in res.iloc[start:end].iterrows():
-        st.write(f"**{r['TiengNhat']}** - {r['Nghia']}")
+filtered_df = df.copy()
+if selected_cat != "Tất cả":
+    filtered_df = filtered_df[filtered_df["PhanLoai"] == selected_cat]
+if search_query:
+    filtered_df = filtered_df[filtered_df["Nghia"].str.contains(search_query, case=False, na=False) | filtered_df["TiengNhat"].str.contains(search_query, case=False, na=False)]
+
+# Hiển thị kết quả
+for index, row in filtered_df.iterrows():
+    st.markdown(f"**{row['TiengNhat']}** - *{row['PhanLoai']}*")
+    st.write(f"💡 Nghĩa: {row['Nghia']}")
+    # Tạo âm thanh
+    text_to_speak = re.sub(r'\[.*?\]', '', str(row['TiengNhat'])).strip()
+    tts = gTTS(text=text_to_speak, lang='ja')
+    fp = io.BytesIO()
+    tts.write_to_fp(fp)
+    fp.seek(0)
+    st.audio(fp, format='audio/mp3')
