@@ -1,40 +1,34 @@
-Nghia,TiengNhat,Romaji_PitchAccent
-Xem,見る (みる),m<span style="color:red">iru</span>
-Nghe,聞く (きく),k<span style="color:red">iku</span>
-Đọc,読む (よむ),y<span style="color:red">omu</span>
-Viết,書く (かく),k<span style="color:red">aku</span>
-Mua,買う (かう),k<span style="color:red">au</span>
-Chụp/Quay,撮る (とる),t<span style="color:red">oru</span>
-Làm,する,s<span style="color:red">uru</span>
-Gặp gỡ,会う (あう),a<span style="color:red">u</span>
-Đi,行く (いく),i<span style="color:red">ku</span>
-Đến,来る (くる),k<span style="color:red">uru</span>
-Tôi,私 (わたし),wat<span style="color:red">ashi</span>
-Bạn,あなた,an<span style="color:red">ata</span>
-Người,人 (ひと),h<span style="color:red">ito</span>
-Sách,本 (ほん),h<span style="color:red">on</span>
-Máy tính,パソコン,pas<span style="color:red">okon</span>
-Điện thoại,電話 (でんわ),denw<span style="color:red">a</span>
-Nhà,家 (いえ),i<span style="color:red">e</span>
-Trường học,学校 (がっこう),gakk<span style="color:red">ou</span>
-Bạn bè,友達 (ともだち),tomod<span style="color:red">achi</span>
-Thầy giáo,先生 (せんせい),sens<span style="color:red">ei</span>
-Học sinh,学生 (がくせい),gakus<span style="color:red">ei</span>
-Công việc,仕事 (しごと),shig<span style="color:red">oto</span>
-Hạnh phúc,幸せ (しあわせ),shiaw<span style="color:red">ase</span>
-Yêu,愛する (あいする),ais<span style="color:red">uru</span>
-Đẹp,綺麗 (きれい),kir<span style="color:red">ei</span>
-Khó,難しい (むずかしい),muzukash<span style="color:red">ii</span>
-Dễ,易しい (やさしい),yasash<span style="color:red">ii</span>
-Nóng,熱い (あつい),ats<span style="color:red">ui</span>
-Lạnh,寒い (さむい),sam<span style="color:red">ui</span>
-Mới,新しい (あたらしい),atarash<span style="color:red">ii</span>
-Cũ,古い (ふるい),fur<span style="color:red">ui</span>
-Lớn,大きい (おおきい),ook<span style="color:red">ii</span>
-Nhỏ,小さい (ちいさい),chiis<span style="color:red">ai</span>
-Xe hơi,車 (くるま),kur<span style="color:red">uma</span>
-Con mèo,猫 (ねこ),n<span style="color:red">eko</span>
-Con chó,犬 (いぬ),in<span style="color:red">u</span>
+Nghia,TiengNhat,PhanLoai
+Tôi,私 (Watashi),Đại từ
+Bạn,あなた (Anata),Đại từ
+Người,人 (Hito),Danh từ
+Cái gì,何 (Nani),Đại từ
+Mấy giờ,何時 (Nanji),Thời gian
+Ăn,食べる (Taberu),Động từ
+Uống,飲む (Nomu),Động từ
+Đi,行く (Iku),Động từ
+Đến,来る (Kuru),Động từ
+Xem,見る (Miru),Động từ
+Bánh mì,パン (Pan),Đồ ăn
+Nước,水 (Mizu),Đồ ăn
+Buổi sáng,朝 (Asa),Thời gian
+Hôm nay,今日 (Kyou),Thời gian
+Ngủ,寝る (Neru),Động từ
+Học,勉強する (Benkyousuru),Động từ
+Sách,本 (Hon),Đồ vật
+Máy tính,パソコン (Pasokon),Đồ vật
+Điện thoại,電話 (Denwa),Đồ vật
+Chào buổi sáng,おはよう (Ohayou),Giao tiếp
+Cảm ơn,ありがとう (Arigatou),Giao tiếp
+Xin lỗi,すみません (Sumimasen),Giao tiếp
+Vâng,はい (Hai),Giao tiếp
+Không,いいえ (Iie),Giao tiếp
+Nhà,家 (Ie),Danh từ
+Trường học,学校 (Gakkou),Danh từ
+Bạn bè,友達 (Tomodachi),Danh từ
+Thầy giáo,先生 (Sensei),Danh từ
+Học sinh,学生 (Gakusei),Danh từ
+Công việc,仕事 (Shigoto),Danh từCon chó,犬 (いぬ),in<span style="color:red">u</span>
 Bầu trời,空 (そら),s<span style="color:red">ora</span>
 Biển,海 (うみ),um<span style="color:red">i</span>
 Núi,山 (やま),yam<span style="color:red">a</span>
