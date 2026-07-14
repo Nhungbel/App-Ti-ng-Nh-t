@@ -1,40 +1,37 @@
 import streamlit as st
 import pandas as pd
-from gtts import gTTS
-import io
-import re
 
-# 1. CẤU HÌNH GIAO DIỆN
-st.set_page_config(page_title="Học Tiếng Nhật Pro", page_icon="🇯🇵", layout="wide")
-
-# CSS tinh chỉnh giao diện
-st.markdown("""
-    <style>
-    .big-font { font-size:30px !important; font-weight: bold; color: #1a4d4a; }
-    .stApp { background-color: #fafafa; }
-    </style>
-    """, unsafe_allow_html=True)
-
-# 2. TẢI DỮ LIỆU VỚI CƠ CHẾ CACHE
 @st.cache_data
 def load_data():
-    try:
-        df = pd.read_csv("tuvung.csv")
-        return df
-    except:
-        return pd.DataFrame(columns=["Nghia", "TiengNhat", "PhanLoai"])
+    # Thêm encoding='utf-8' để đọc tiếng Nhật
+    return pd.read_csv('tuvung.csv', encoding='utf-8')
 
 df = load_data()
 
-# 3. SIDEBAR (THANH BÊN)
-st.sidebar.title("🎛️ Bảng điều khiển")
-selected_category = st.sidebar.selectbox("Lọc theo nhóm:", ["Tất cả"] + list(df["PhanLoai"].unique()))
-st.sidebar.info(f"Tổng số từ: {len(df)}")
+st.title("🇯🇵 Tra cứu 1000 Từ Vựng")
 
-# 4. GIAO DIỆN CHÍNH
-st.markdown('<p class="big-font">🇯🇵 App Tra Cứu Tiếng Nhật Pro</p>', unsafe_allow_html=True)
-search = st.text_input("🔍 Nhập từ tiếng Nhật hoặc nghĩa tiếng Việt:", placeholder="Ví dụ: Ăn...")
+# Sử dụng key để giữ trạng thái input ổn định
+search_query = st.text_input("Tìm kiếm:", key="search_bar")
 
+if search_query:
+    # Lọc: Tìm trong cột 'Nghia' HOẶC 'TiengNhat'
+    # .str.strip() giúp xóa khoảng trắng vô tình có ở đầu/cuối ô
+    mask = (df['Nghia'].str.contains(search_query, case=False, na=False)) | \
+           (df['TiengNhat'].str.contains(search_query, case=False, na=False))
+    
+    results = df[mask]
+    
+    if not results.empty:
+        for index, row in results.iterrows():
+            st.write(f"### {row['Nghia']} - {row['TiengNhat']}")
+            st.write(f"**Romaji:** {row['Romaji']}")
+            st.markdown(f"**Pitch Accent:** {row['PitchAccent']}", unsafe_allow_html=True)
+            st.write("---")
+    else:
+        # Nếu vẫn hiện ra đây, nghĩa là từ bạn tìm không nằm trong file CSV
+        st.warning(f"Không tìm thấy từ: '{search_query}'. Hãy kiểm tra lại file CSV.")
+        st.write("Dữ liệu hiện có trong hệ thống:")
+        st.write(df['Nghia'].tolist()) # Hiển thị danh sách từ để debug
 # 5. LOGIC XỬ LÝ
 filtered_df = df.copy()
 
